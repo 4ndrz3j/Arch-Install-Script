@@ -17,7 +17,6 @@ install_fonts(){
 
 copy_config(){
     echo "Cloning dotfiles"
-    mkdir ~/git
     git clone https://github.com/4ndrz3j/dotfiles git/dotfiles
     cp ~/git/dotfiles/zprofile ~/.zprofile
     ln -s ~/git/dotfiles/ ~/.config
@@ -29,7 +28,8 @@ copy_config(){
 install_software(){
     echo "Installing OhMyZsh"
     ZSH="$HOME/.config/zsh/oh-my-zsh" sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    rm ~./zshrc
+    # Removing original config and replacing with our
+    rm ~/.zshrc ~/.zshrc.pre-oh-my-zsh
     ln -s ~/git/dotfiles/zsh/zshrc ~/.zshrc
 
 
@@ -45,6 +45,8 @@ install_software(){
     sudo chown -R $USERNAME:$USERNAME /home/$USERNAME
     }
 
+# Make sure that we are operating on our home catalog
+export HOME=/home/$USERNAME
 
 copy_config
 install_fonts
