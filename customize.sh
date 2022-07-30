@@ -22,7 +22,7 @@ copy_config(){
     cp ~/git/dotfiles/zprofile ~/.zprofile
     ln -s ~/git/dotfiles/ ~/.config
     #Making scripts executable
-    chmod +x ~./config/i3/i3blocks_scripts/*
+    chmod +x ~/.config/i3/i3blocks_scripts/*
 }
 
 
@@ -30,6 +30,7 @@ install_software(){
     echo "Installing OhMyZsh"
     ZSH="$HOME/.config/zsh/oh-my-zsh" sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     rm ~./zshrc
+    ln -s ~/git/dotfiles/zsh/zshrc ~/.zshrc
 
 
     sudo mkdir $PACKAGES_CATALOG; sudo chown $USERNAME:root $PACKAGES_CATALOG
