@@ -1,0 +1,48 @@
+
+> This install script is designed to work with my config files. You can find them
+[here](https://github.com/4ndrz3j/dotfiles)
+
+
+# Install
+
+First run **install_arch.sh**. Read config and make a proper changes for your
+setup.
+
+## Main Packages
+| Purpouse          | Package Name  |
+|-------------------|-------------- |
+| Shell             | zsh + OhMyZsh |
+| Terminal Emulator | Alacritty     |
+| Window manager    | i3wm          |
+| Image Viewer      | feh           |
+| Status Bar        | i3blocks      |
+| dmenu replacment  | Rofi          |
+| Web Browser       | Librewolf     |
+| Text Editor       | neovim        |
+| Theme             | Arc Dark      |
+| Fonts             | Roboto Mono + Iosevka|
+| Audio             | PulseAudio + pavucontrol-qt|
+| Screenshot app    | Flameshot     |
+
+
+### Other Software
+
+- xcwd
+- unzip
+- git
+- wget
+- blueman
+
+## Startup/Shutdown files
+
+*.zprofile* and *.zlogout* is intended to use for startup/shutdown files.
+
+## Display/login manager
+
+There is no standard display manager. i3 is stared using ```.zprofile```
+
+## Opacity
+
+Opacity is achived using compton
+
+
