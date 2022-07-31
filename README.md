@@ -22,7 +22,7 @@ setup.
 | Theme             | Arc Dark      |
 | Icons		    | ePapirus-Dark |
 | Fonts             | Roboto Mono + Iosevka|
-| Audio             | PulseAudio + pavucontrol-qt|
+| Audio             | PulseAudio + pavucontrol|
 | Screenshot app    | Flameshot     |
 
 
