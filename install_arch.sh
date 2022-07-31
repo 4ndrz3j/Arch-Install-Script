@@ -28,7 +28,7 @@ PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm"
 
 PACKAGES_RICE="arc-gtk-theme base-devel zsh networkmanager xorg unzip i3 git xorg-xinit alacritty neovim flameshot feh i3blocks pavucontrol-qt i3status i3-gaps rofi compton python-pip wget"
 
-PACKAGES_OPTIONAL="network-manager-applet blueman pulseaudio-bluetooth"
+PACKAGES_OPTIONAL="papirus-icon-theme network-manager-applet blueberry pulseaudio-bluetooth lxappearance-gtk3 qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat"
 
 # Driver for GPU
 # See here available drivers
@@ -115,6 +115,9 @@ chroot_and_install(){
     echo -e "${BB}Enabling NetworkManager${CR}"
     arch-chroot /mnt systemctl enable NetworkManager
     arch-chroot /mnt systemctl start NetworkManager
+    arch-chroot /mnt systemctl enable libvirtd
+    arch-chroot /mnt systemctl start libvirtd
+
 
 # Copy key, to avoid typing passphrase two times on boot.
     echo -e "${BB}Creating keyfile${CR}"

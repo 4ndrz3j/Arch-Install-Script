@@ -20,6 +20,7 @@ setup.
 | Web Browser       | Librewolf     |
 | Text Editor       | neovim        |
 | Theme             | Arc Dark      |
+| Icons		    | ePapirus-Dark |
 | Fonts             | Roboto Mono + Iosevka|
 | Audio             | PulseAudio + pavucontrol-qt|
 | Screenshot app    | Flameshot     |
@@ -31,7 +32,7 @@ setup.
 - unzip
 - git
 - wget
-- blueman
+- blueberry
 
 ## Startup/Shutdown files
 
