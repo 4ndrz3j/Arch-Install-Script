@@ -24,7 +24,7 @@ setup.
 | Fonts             | Roboto Mono + Iosevka|
 | Audio             | PulseAudio + pavucontrol|
 | Screenshot app    | Flameshot     |
-
+| Notification daemon| dunst        |
 
 ### Other Software
 
