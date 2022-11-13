@@ -190,21 +190,12 @@ get_disk_pass(){
      echo -e "${BB} Confirm your passhprase: ${CR}"
      read -s PASS2
      if [[ "$PASS1" == "$PASS2" ]];then
-         SAME=true
+        DISK_PASSPHRASE=$PASS1
+        return
      else
-         SAME=false
+          echo -e "${BR} Passphrases are difrent! ${CR}"
+          get_disk_pass
      fi
-    
-     case $SAME in
-        true)
-            DISK_PASSPHRASE=$PASS1
-            return
-            ;;
-        false)
-            echo -e "${BR} Passphrases are difrent! ${CR}"
-            get_disk_pass()
-            ;;
-    esac
 }
 
 install_blackarch(){
