@@ -18,7 +18,7 @@ DISK="/dev/vda"
 # Place here your desired kernel.
 # You can also choose linux-lts, linux-hardened, linux-zen, or other.
 
-KERNEL="linux"
+KERNEL="linux-zen"
 
 # Essential packages to run system. You shouldn't remove any of it.
 
@@ -26,9 +26,9 @@ PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networ
 
 # Aditional packages for your install.
 
-PACKAGES_RICE="arc-gtk-theme base-devel zsh xorg unzip i3 git xorg-xinit alacritty neovim flameshot feh i3blocks pavucontrol i3status i3-gaps rofi compton python-pip wget xss-lock"
+PACKAGES_RICE="arc-gtk-theme base-devel zsh xorg unzip i3 git xorg-xinit alacritty neovim flameshot network-manager-applet  feh i3blocks pavucontrol i3status i3-gaps rofi compton python-pip wget xss-lock"
 
-PACKAGES_OPTIONAL="dunst papirus-icon-theme network-manager-applet pulseaudio-bluetooth lxappearance-gtk3 qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat"
+PACKAGES_OPTIONAL="dunst papirus-icon-theme pulseaudio-bluetooth lxappearance-gtk3 qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat"
 
 # Driver for GPU
 # See here available drivers
@@ -43,6 +43,10 @@ NAME="Arch"
 # Your username
 
 USERNAME="user"
+
+# Install BlackArch repos?
+
+BLACKARCH=true
 
 echo -e """
 ${BB}This script is going to create two partitions,
@@ -91,10 +95,9 @@ disk_partition(){
 
 # Encrypt disks
 encrypt_disk(){
-    echo -e "${BY}Enter password for encrypting disk: ${CR}"
-    cryptsetup luksFormat --type luks1 $DISK'2'
-    echo -e "${BY}Enter password for disk decryption now: ${CR}"
-    cryptsetup open $DISK'2' cryptlvm
+    echo -e "${BY} ENcrypting Disk ${CR}"
+    echo -n $DISK_PASSHPRASE | cryptsetup luksFormat --type luks1 $DISK'2' -d -
+    echo -n $DISK_PASSHPRASE | cryptsetup open $DISK'2' cryptlvm -d -
     echo -e "${BB} Creating filesystem ${CR}"
     mkfs.ext4 /dev/mapper/cryptlvm
     mount /dev/mapper/cryptlvm /mnt
@@ -122,8 +125,7 @@ chroot_and_install(){
 # Copy key, to avoid typing passphrase two times on boot.
     echo -e "${BB}Creating keyfile${CR}"
     arch-chroot /mnt dd bs=512 count=4 if=/dev/urandom of=/crypto_keyfile.bin
-    arch-chroot /mnt echo -e "Enter disk encrypting password - we need to add key to set decryption once"
-    arch-chroot /mnt cryptsetup luksAddKey $DISK'2' /crypto_keyfile.bin
+    arch-chroot /mnt echo -n $DISK_PASSHPRASE |cryptsetup luksAddKey $DISK'2' /crypto_keyfile.bin -d -
     arch-chroot /mnt chmod 000 /crypto_keyfile.bin
 
 
@@ -172,7 +174,7 @@ Defaults insults" > /mnt/etc/sudoers
 # This will copy customize.sh and run it to finish instalation.
 final_rice(){
 echo -e "${BB}Adding final touch.${CR}"
-cp -r config/ customize.sh /mnt/home/$USERNAME
+cp customize.sh /mnt/home/$USERNAME
 arch-chroot -u $USERNAME /mnt bash -c "export HOME=/home/$USERNAME; sh /home/$USERNAME/customize.sh"
 }
 
@@ -182,14 +184,38 @@ end(){
 
 }
 
+get_disk_pass(){
+     echo -e "${BB} Enter disk encryption passphrase: ${CR}"
+     read PASS1
+     echo -e "${BB} Confirm your passhprase: ${CR}"
+     read PASS2
+     if [[ "$PASS1" == "$PASS2" ]];then
+         DISK_PASSPHRASE=$PASS1
+         return
+     else
+         echo -e "${BR} Passphrases are difrent! ${CR}"
+         get_disk_pass()
+    fi
+}
+
+install_blackarch(){
+    echo -e "${BB} Instaling BlackArch Repository ${CR}"
+    curl -O https://blackarch.org/strap.sh
+    cp strap.sh /mnt/root/strap.sh
+    arch-chroot /mnt bash /root/strap.sh
+    arch-chroot /mnt sudo pacman -Syu
+}
+
 install(){
 
     set_locals
     disk_partition
+    get_disk_pass
     encrypt_disk
     chroot_and_install
     configure_system
     final_rice
+    if $BLACKARCH;then install_blackarch;fi
     end
 }
 
