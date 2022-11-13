@@ -96,8 +96,8 @@ disk_partition(){
 # Encrypt disks
 encrypt_disk(){
     echo -e "${BY} ENcrypting Disk ${CR}"
-    echo -n $DISK_PASSHPRASE | cryptsetup luksFormat --type luks1 $DISK'2' -d -
-    echo -n $DISK_PASSHPRASE | cryptsetup open $DISK'2' cryptlvm -d -
+    echo -n $DISK_PASSHPHRASE | cryptsetup luksFormat --type luks1 $DISK'2' -d -
+    echo -n $DISK_PASSHPHRASE | cryptsetup open $DISK'2' cryptlvm -d -
     echo -e "${BB} Creating filesystem ${CR}"
     mkfs.ext4 /dev/mapper/cryptlvm
     mount /dev/mapper/cryptlvm /mnt
@@ -125,7 +125,7 @@ chroot_and_install(){
 # Copy key, to avoid typing passphrase two times on boot.
     echo -e "${BB}Creating keyfile${CR}"
     arch-chroot /mnt dd bs=512 count=4 if=/dev/urandom of=/crypto_keyfile.bin
-    arch-chroot /mnt echo -n $DISK_PASSHPRASE |cryptsetup luksAddKey $DISK'2' /crypto_keyfile.bin -d -
+    arch-chroot /mnt echo -n $DISK_PASSHPHRASE |cryptsetup luksAddKey $DISK'2' /crypto_keyfile.bin -d -
     arch-chroot /mnt chmod 000 /crypto_keyfile.bin
 
 
@@ -186,16 +186,25 @@ end(){
 
 get_disk_pass(){
      echo -e "${BB} Enter disk encryption passphrase: ${CR}"
-     read PASS1
+     read -s PASS1
      echo -e "${BB} Confirm your passhprase: ${CR}"
-     read PASS2
+     read -s PASS2
      if [[ "$PASS1" == "$PASS2" ]];then
-         DISK_PASSPHRASE=$PASS1
-         return
+         SAME=true
      else
-         echo -e "${BR} Passphrases are difrent! ${CR}"
-         get_disk_pass()
-    fi
+         SAME=false
+     fi
+    
+     case $SAME in
+        true)
+            DISK_PASSPHRASE=$PASS1
+            return
+            ;;
+        false)
+            echo -e "${BR} Passphrases are difrent! ${CR}"
+            get_disk_pass()
+            ;;
+    esac
 }
 
 install_blackarch(){
