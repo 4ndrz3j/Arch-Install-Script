@@ -46,4 +46,6 @@ There is no standard display manager. i3 is stared using ```.zprofile```
 
 Opacity is achived using compton
 
+# BlackArch
 
+You can install BlackArch repos by setting variable *BLACKARCH* to ```true```
