@@ -21,7 +21,7 @@ setup.
 | Text Editor       | neovim        |
 | Theme             | Arc Dark      |
 | Icons		    | ePapirus-Dark |
-| Fonts             | Roboto Mono + Iosevka|
+| Fonts             | Iosevka|
 | Audio             | PulseAudio + pavucontrol|
 | Screenshot app    | Flameshot     |
 | Notification daemon| dunst        |
