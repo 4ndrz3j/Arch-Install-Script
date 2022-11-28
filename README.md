@@ -44,7 +44,7 @@ There is no standard display manager. i3 is stared using ```.zprofile```
 
 ## Opacity
 
-Opacity is achived using compton
+Opacity is achived using picom
 
 # BlackArch
 
