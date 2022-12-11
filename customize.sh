@@ -1,8 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 # Inspired by xct https://github.com/xct/kali-clean/blob/main/install.sh
 
 USERNAME=`whoami`
-PACKAGES_CATALOG="/opt/packages"
 
 install_fonts(){
     cd ~
@@ -31,15 +30,16 @@ install_software(){
     ln -s ~/git/dotfiles/zsh/zshrc ~/.zshrc
 
 
-    sudo mkdir $PACKAGES_CATALOG; sudo chown $USERNAME:root $PACKAGES_CATALOG
     echo "Installing Librewolf"
     gpg --recv-keys 2954CC8585E27A3F
-    git clone https://aur.archlinux.org/librewolf-bin.git $PACKAGES_CATALOG/librewolf-bin
-    cd $PACKAGES_CATALOG/librewolf-bin && makepkg -si
+    git clone https://aur.archlinux.org/librewolf-bin.git librewolf-bin
+    cd librewolf-bin && makepkg -si
+    cd .. && rm -rf librewolf-bin
 
     echo "Installing xcwd"
-    git clone https://github.com/schischi/xcwd $PACKAGES_CATALOG/xcwd
-    cd $PACKAGES_CATALOG/xcwd && make; sudo make install
+    git clone https://github.com/schischi/xcwd xcwd
+    cd xcwd && make; sudo make install
+    cd ..  && rm -rf xcwd
     sudo chown -R $USERNAME:$USERNAME /home/$USERNAME
     }
 
