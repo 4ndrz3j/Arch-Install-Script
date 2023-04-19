@@ -26,7 +26,7 @@ PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networ
 
 # Aditional packages for your install.
 
-PACKAGES_RICE="arc-gtk-theme base-devel zsh xorg unzip i3 git xorg-xinit alacritty neovim flameshot network-manager-applet  feh i3blocks pavucontrol i3status i3-gaps rofi picom python-pip wget xss-lock"
+PACKAGES_RICE="arc-gtk-theme sysstat base-devel zsh xorg unzip i3 git xorg-xinit alacritty neovim flameshot network-manager-applet  feh i3blocks pavucontrol i3status i3-gaps rofi picom python-pip wget xss-lock"
 
 PACKAGES_OPTIONAL="dunst papirus-icon-theme pulseaudio-bluetooth lxappearance-gtk3 qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat"
 

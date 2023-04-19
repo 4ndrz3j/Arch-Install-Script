@@ -11,7 +11,7 @@ setup.
 ## Main Packages
 | Purpouse          | Package Name  |
 |-------------------|-------------- |
-| Shell             | zsh + OhMyZsh |
+| Shell             | zsh           |
 | Terminal Emulator | Alacritty     |
 | Window manager    | i3wm          |
 | Image Viewer      | feh           |
@@ -20,7 +20,7 @@ setup.
 | Web Browser       | Librewolf     |
 | Text Editor       | neovim        |
 | Theme             | Arc Dark      |
-| Icons		    | ePapirus-Dark |
+| Icons		        | ePapirus-Dark |
 | Fonts             | Iosevka|
 | Audio             | PulseAudio + pavucontrol|
 | Screenshot app    | Flameshot     |
@@ -32,7 +32,7 @@ setup.
 - unzip
 - git
 - wget
-- blueberry
+- bluemoon
 
 ## Startup/Shutdown files
 
