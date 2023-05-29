@@ -23,11 +23,7 @@ copy_config(){
 
 
 install_software(){
-    echo "Installing OhMyZsh"
-    ZSH="$HOME/.config/zsh/oh-my-zsh" sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    # Removing original config and replacing with our
-    rm ~/.zshrc ~/.zshrc.pre-oh-my-zsh
-    ln -s ~/git/dotfiles/zsh/zshrc ~/.zshrc
+    ln -s ~/git/dotfiles/zsh/.zshrc ~/.zshrc
 
 
     echo "Installing Librewolf"
