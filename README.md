@@ -34,6 +34,10 @@ setup.
 - wget
 - bluemoon
 
+## Browsers
+
+Main browser is [Librewolf](https://librewolf.net/), secondary is [Chromium](https://wiki.archlinux.org/title/chromium).
+
 ## Startup/Shutdown files
 
 *.zprofile* and *.zlogout* is intended to use for startup/shutdown files.
