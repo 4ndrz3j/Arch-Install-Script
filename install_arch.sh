@@ -46,7 +46,7 @@ USERNAME="user"
 
 # Install BlackArch repos?
 
-BLACKARCH=true
+BLACKARCH=false
 
 echo -e """
 ${BB}This script is going to create two partitions,
@@ -125,7 +125,7 @@ chroot_and_install(){
 # Copy key, to avoid typing passphrase two times on boot.
     echo -e "${BB}Creating keyfile${CR}"
     arch-chroot /mnt dd bs=512 count=4 if=/dev/urandom of=/crypto_keyfile.bin
-    arch-chroot /mnt "echo -n $DISK_PASSPHRASE |cryptsetup luksAddKey $DISK'2' /crypto_keyfile.bin -d -"
+    arch-chroot /mnt printf $DISK_PASSPHRASE\n |cryptsetup luksAddKey $DISK'2' /crypto_keyfile.bin -d -
     arch-chroot /mnt chmod 000 /crypto_keyfile.bin
 
 
