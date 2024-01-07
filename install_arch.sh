@@ -125,7 +125,7 @@ chroot_and_install(){
 # Copy key, to avoid typing passphrase two times on boot.
     echo -e "${BB}Creating keyfile${CR}"
     arch-chroot /mnt dd bs=512 count=4 if=/dev/urandom of=/crypto_keyfile.bin
-    arch-chroot /mnt printf $DISK_PASSPHRASE\n |cryptsetup luksAddKey $DISK'2' /crypto_keyfile.bin -d -
+    printf $DISK_PASSPHRASE\n |cryptsetup luksAddKey $DISK'2' /crypto_keyfile.bin -d -
     arch-chroot /mnt chmod 000 /crypto_keyfile.bin
 
 
@@ -133,7 +133,7 @@ chroot_and_install(){
     arch-chroot /mnt sed -i "s/^HOOKS=(.*)/HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)/g" /etc/mkinitcpio.conf
     arch-chroot /mnt sed -i "s/^FILES=()/FILES=(\/crypto_keyfile.bin)/g" /etc/mkinitcpio.conf
     echo -e "${BB}Creating ramdisk${CR}"
-# If you choose linux-lts, change linux to linux-lts, after -p
+    # If you choose linux-lts, change linux to linux-lts, after -p
     arch-chroot /mnt mkinitcpio -p $KERNEL
 
 
