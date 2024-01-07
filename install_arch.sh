@@ -96,7 +96,7 @@ disk_partition(){
 
 # Encrypt disks
 encrypt_disk(){
-    echo -e "${BY} ENcrypting Disk ${CR}"
+    echo -e "${BY} Encrypting Disk ${CR}"
     echo -n $DISK_PASSPHRASE | cryptsetup luksFormat --type luks1 $DISK'2' -d -
     echo -n $DISK_PASSPHRASE | cryptsetup open $DISK'2' cryptlvm -d -
     echo -e "${BB} Creating filesystem ${CR}"
@@ -126,7 +126,7 @@ chroot_and_install(){
 # Copy key, to avoid typing passphrase two times on boot.
     echo -e "${BB}Creating keyfile${CR}"
     arch-chroot /mnt dd bs=512 count=4 if=/dev/urandom of=/crypto_keyfile.bin
-    printf $DISK_PASSPHRASE\n |cryptsetup luksAddKey $DISK'2' /mnt/crypto_keyfile.bin -d -
+    echo -n $DISK_PASSPHRASE |cryptsetup luksAddKey $DISK'2' /mnt/crypto_keyfile.bin -d -
     arch-chroot /mnt chmod 000 /crypto_keyfile.bin
 
 
