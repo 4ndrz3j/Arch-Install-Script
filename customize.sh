@@ -14,6 +14,7 @@ install_fonts(){
 
 copy_config(){
     echo "Cloning dotfiles"
+    cd ~
     git clone https://github.com/4ndrz3j/dotfiles git/dotfiles
     cp ~/git/dotfiles/zprofile ~/.zprofile
     ln -s ~/git/dotfiles/ ~/.config
