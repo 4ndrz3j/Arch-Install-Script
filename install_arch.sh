@@ -175,7 +175,7 @@ Defaults insults" > /mnt/etc/sudoers
 final_rice(){
 echo -e "${BB}Adding final touch.${CR}"
 cp customize.sh /mnt/home/$USERNAME
-arch-chroot /mnt sudo -u $USERNAME  bash ~/customize.sh"
+arch-chroot /mnt sudo -u $USERNAME  bash ~/customize.sh
 }
 
 end(){
