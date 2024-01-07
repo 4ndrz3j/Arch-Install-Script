@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 # 29.03.2021
 # For UEFI/EFI systems
 # Inspired by https://www.unixsheikh.com/tutorials/real-full-disk-encryption-using-grub-on-arch-linux-for-bios-and-uefi.html
@@ -42,6 +42,7 @@ NAME="Arch"
 # Your username
 
 USERNAME="user"
+TEMP_USERNAME=$USERNAME # Workaround for issues with passing variable to arch-chroo
 
 
 # Install BlackArch repos?
@@ -175,7 +176,7 @@ Defaults insults" > /mnt/etc/sudoers
 final_rice(){
 echo -e "${BB}Adding final touch.${CR}"
 cp customize.sh /mnt/home/$USERNAME
-arch-chroot /mnt sudo -u $USERNAME  bash ~/customize.sh
+arch-chroot /mnt sudo -u $TEMP_USERNAME bash /home/$TEMP_USERNAME/customize.sh
 }
 
 end(){
