@@ -125,7 +125,7 @@ chroot_and_install(){
 # Copy key, to avoid typing passphrase two times on boot.
     echo -e "${BB}Creating keyfile${CR}"
     arch-chroot /mnt dd bs=512 count=4 if=/dev/urandom of=/crypto_keyfile.bin
-    printf $DISK_PASSPHRASE\n |cryptsetup luksAddKey $DISK'2' /crypto_keyfile.bin -d -
+    printf $DISK_PASSPHRASE\n |cryptsetup luksAddKey $DISK'2' /mnt/crypto_keyfile.bin -d -
     arch-chroot /mnt chmod 000 /crypto_keyfile.bin
 
 
@@ -175,7 +175,7 @@ Defaults insults" > /mnt/etc/sudoers
 final_rice(){
 echo -e "${BB}Adding final touch.${CR}"
 cp customize.sh /mnt/home/$USERNAME
-arch-chroot -u $USERNAME /mnt bash -c "export HOME=/home/$USERNAME; bash /home/$USERNAME/customize.sh"
+arch-chroot /mnt sudo -u $USERNAME  bash ~/customize.sh"
 }
 
 end(){
