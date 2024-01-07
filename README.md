@@ -17,7 +17,7 @@ setup.
 | Image Viewer      | feh           |
 | Status Bar        | i3blocks      |
 | dmenu replacment  | Rofi          |
-| Web Browser       | Librewolf     |
+| Web Browser       | Librewolf + Chromium     |
 | Text Editor       | neovim        |
 | Theme             | Arc Dark      |
 | Icons		        | ePapirus-Dark |
