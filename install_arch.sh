@@ -112,7 +112,7 @@ encrypt_disk(){
 # Change Kernel to desired version
 chroot_and_install(){
     echo -e "${BB}Installing packages now${CR}"
-    pacstrap /mnt $KERNEL $PACKAGES $PACKAGES_UTILITIES $PACKAGES_RICE $GPU_DRIVER
+    pacstrap /mnt $KERNEL $PACKAGES $PACKAGES_OPTIONAL $PACKAGES_RICE $GPU_DRIVER
     echo -e "${BB}Generating fstab${CR}"
     genfstab -U /mnt >> /mnt/etc/fstab
     sed -i "s/relatime/relatime,discard/g" /mnt/etc/fstab
