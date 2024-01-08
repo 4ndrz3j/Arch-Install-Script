@@ -17,7 +17,7 @@ setup.
 | Image Viewer      | feh           |
 | Status Bar        | i3blocks      |
 | dmenu replacment  | Rofi          |
-| Web Browser       | Librewolf     |
+| Web Browser       | Librewolf + Chromium     |
 | Text Editor       | neovim        |
 | Theme             | Arc Dark      |
 | Icons		        | ePapirus-Dark |
@@ -33,6 +33,10 @@ setup.
 - git
 - wget
 - bluemoon
+
+## Browsers
+
+Main browser is [Librewolf](https://librewolf.net/), secondary is [Chromium](https://wiki.archlinux.org/title/chromium).
 
 ## Startup/Shutdown files
 

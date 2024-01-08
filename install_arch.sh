@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 # 29.03.2021
 # For UEFI/EFI systems
 # Inspired by https://www.unixsheikh.com/tutorials/real-full-disk-encryption-using-grub-on-arch-linux-for-bios-and-uefi.html
@@ -26,9 +26,8 @@ PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networ
 
 # Aditional packages for your install.
 
-PACKAGES_RICE="arc-gtk-theme sysstat base-devel zsh xorg unzip i3 git xorg-xinit alacritty neovim flameshot network-manager-applet  feh i3blocks pavucontrol i3status i3-gaps rofi picom python-pip wget xss-lock"
-
-PACKAGES_OPTIONAL="dunst papirus-icon-theme pulseaudio-bluetooth lxappearance-gtk3 qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat"
+PACKAGES_RICE="arc-gtk-theme sysstat base-devel zsh xorg unzip i3 git xorg-xinit alacritty network-manager-applet neovim feh i3blocks pavucontrol i3status i3-gaps rofi picom python-pip wget xss-lock"
+PACKAGES_OPTIONAL="signal-desktop chromium flameshot dunst papirus-icon-theme pulseaudio-bluetooth lxappearance-gtk3 qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat"
 
 # Driver for GPU
 # See here available drivers
@@ -43,10 +42,12 @@ NAME="Arch"
 # Your username
 
 USERNAME="user"
+TEMP_USERNAME=$USERNAME # Workaround for issues with passing variable to arch-chroo
+
 
 # Install BlackArch repos?
 
-BLACKARCH=true
+BLACKARCH=false
 
 echo -e """
 ${BB}This script is going to create two partitions,
@@ -95,7 +96,7 @@ disk_partition(){
 
 # Encrypt disks
 encrypt_disk(){
-    echo -e "${BY} ENcrypting Disk ${CR}"
+    echo -e "${BY} Encrypting Disk ${CR}"
     echo -n $DISK_PASSPHRASE | cryptsetup luksFormat --type luks1 $DISK'2' -d -
     echo -n $DISK_PASSPHRASE | cryptsetup open $DISK'2' cryptlvm -d -
     echo -e "${BB} Creating filesystem ${CR}"
@@ -111,7 +112,7 @@ encrypt_disk(){
 # Change Kernel to desired version
 chroot_and_install(){
     echo -e "${BB}Installing packages now${CR}"
-    pacstrap /mnt $KERNEL $PACKAGES $PACKAGES_OPTIONAL $PACKAGES_RICE $GPU_DRIVER
+    pacstrap /mnt $KERNEL $PACKAGES $PACKAGES_UTILITIES $PACKAGES_RICE $GPU_DRIVER
     echo -e "${BB}Generating fstab${CR}"
     genfstab -U /mnt >> /mnt/etc/fstab
     sed -i "s/relatime/relatime,discard/g" /mnt/etc/fstab
@@ -125,7 +126,7 @@ chroot_and_install(){
 # Copy key, to avoid typing passphrase two times on boot.
     echo -e "${BB}Creating keyfile${CR}"
     arch-chroot /mnt dd bs=512 count=4 if=/dev/urandom of=/crypto_keyfile.bin
-    arch-chroot /mnt "echo -n $DISK_PASSPHRASE |cryptsetup luksAddKey $DISK'2' /crypto_keyfile.bin -d -"
+    echo -n $DISK_PASSPHRASE |cryptsetup luksAddKey $DISK'2' /mnt/crypto_keyfile.bin -d -
     arch-chroot /mnt chmod 000 /crypto_keyfile.bin
 
 
@@ -133,7 +134,7 @@ chroot_and_install(){
     arch-chroot /mnt sed -i "s/^HOOKS=(.*)/HOOKS=(base udev autodetect modconf block encrypt filesystems keyboard fsck)/g" /etc/mkinitcpio.conf
     arch-chroot /mnt sed -i "s/^FILES=()/FILES=(\/crypto_keyfile.bin)/g" /etc/mkinitcpio.conf
     echo -e "${BB}Creating ramdisk${CR}"
-# If you choose linux-lts, change linux to linux-lts, after -p
+    # If you choose linux-lts, change linux to linux-lts, after -p
     arch-chroot /mnt mkinitcpio -p $KERNEL
 
 
@@ -175,7 +176,7 @@ Defaults insults" > /mnt/etc/sudoers
 final_rice(){
 echo -e "${BB}Adding final touch.${CR}"
 cp customize.sh /mnt/home/$USERNAME
-arch-chroot -u $USERNAME /mnt bash -c "export HOME=/home/$USERNAME; bash /home/$USERNAME/customize.sh"
+arch-chroot /mnt sudo -u $TEMP_USERNAME bash /home/$TEMP_USERNAME/customize.sh
 }
 
 end(){
