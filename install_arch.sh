@@ -28,7 +28,7 @@ PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networ
 
 PACKAGES_RICE="arc-gtk-theme sysstat base-devel zsh xorg unzip i3 git xorg-xinit alacritty network-manager-applet neovim feh i3blocks pavucontrol i3status i3-gaps rofi picom python-pip wget xss-lock"
 # You may want to remove something from this list if you, specially if you are installing BlackArch repos in VM.
-PACKAGES_OPTIONAL="signal-desktop chromium flameshot dunst papirus-icon-theme pulseaudio-bluetooth lxappearance-gtk3 qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat"
+PACKAGES_OPTIONAL="ntfs-3g signal-desktop chromium flameshot dunst papirus-icon-theme pulseaudio-bluetooth lxappearance-gtk3 dmidecode qemu virt-manager virt-viewer qemu-full dnsmasq vde2 bridge-utils openbsd-netcat bluez-utils"
 
 # Driver for GPU
 # See here available drivers
@@ -122,6 +122,9 @@ chroot_and_install(){
     arch-chroot /mnt systemctl start NetworkManager
     arch-chroot /mnt systemctl enable libvirtd
     arch-chroot /mnt systemctl start libvirtd
+    arch-chroot /mnt systemctl enable bluetooth
+    arch-chroot /mnt systemctl start bluetooth
+
 
 
 # Copy key, to avoid typing passphrase two times on boot.
@@ -167,7 +170,8 @@ configure_system(){
     echo "root ALL=(ALL) ALL
 $USERNAME ALL=(ALL) ALL
 Defaults insults" > /mnt/etc/sudoers
-
+    
+    arch-chroot sudo usermod -a -G libvirt $USERNAME
 
 }
 
@@ -205,7 +209,7 @@ install_blackarch(){
     curl -O https://blackarch.org/strap.sh
     cp strap.sh /mnt/root/strap.sh
     arch-chroot /mnt bash /root/strap.sh
-    arch-chroot /mnt sudo pacman -Syuu smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound
+    arch-chroot /mnt sudo pacman -Syuu gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound
     
 }
 
