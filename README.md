@@ -17,7 +17,7 @@ setup.
 | Image Viewer      | feh           |
 | Status Bar        | i3blocks      |
 | dmenu replacment  | Rofi          |
-| Web Browser       | Librewolf + Chromium     |
+| Web Browser       | Waterfox + Chromium     |
 | Text Editor       | neovim        |
 | Theme             | Arc Dark      |
 | Icons		        | ePapirus-Dark |
@@ -36,7 +36,9 @@ setup.
 
 ## Browsers
 
-Main browser is [Librewolf](https://librewolf.net/), secondary is [Chromium](https://wiki.archlinux.org/title/chromium).
+Main browser is [Waterfox](https://www.waterfox.net/), secondary is [Chromium](https://wiki.archlinux.org/title/chromium).
+
+In the past I used [Librewolf](https://librewolf.net/), but there were some problems with instaling this on Arch. 
 
 ## Startup/Shutdown files
 
