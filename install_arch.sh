@@ -209,7 +209,7 @@ install_blackarch(){
     curl -O https://blackarch.org/strap.sh
     cp strap.sh /mnt/root/strap.sh
     arch-chroot /mnt bash /root/strap.sh
-    arch-chroot /mnt sudo pacman -Syuu php proxychains gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound
+    arch-chroot /mnt sudo pacman -Syuu sqlmap net-snmp php proxychains gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound
     
 }
 
