@@ -26,7 +26,7 @@ PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networ
 
 # Aditional packages for your install.
 
-PACKAGES_RICE="arc-gtk-theme sysstat base-devel zsh xorg unzip i3 git xorg-xinit alacritty network-manager-applet neovim feh i3blocks pavucontrol i3status i3-gaps rofi picom python-pip wget xss-lock"
+PACKAGES_RICE="acpi arc-gtk-theme sysstat base-devel zsh xorg unzip i3 git xorg-xinit alacritty network-manager-applet neovim feh i3blocks pavucontrol i3status i3-gaps rofi picom python-pip wget xss-lock"
 # You may want to remove something from this list if you, specially if you are installing BlackArch repos in VM.
 PACKAGES_OPTIONAL="ntfs-3g signal-desktop chromium flameshot dunst papirus-icon-theme pulseaudio-bluetooth lxappearance-gtk3 dmidecode qemu virt-manager virt-viewer qemu-full dnsmasq vde2 bridge-utils openbsd-netcat bluez-utils"
 
@@ -148,7 +148,7 @@ chroot_and_install(){
     arch-chroot /mnt sed -i "s@^GRUB_CMDLINE_LINUX=.*@GRUB_CMDLINE_LINUX=\"cryptdevice="$DISK"2:cryptroot:allow-discards\"@g" /etc/default/grub
     echo -e "${BB}Enabling crypto in grub${CR}"
     arch-chroot /mnt sed -i "s/^#GRUB_ENABLE_CRYPTODISK/GRUB_ENABLE_CRYPTODISK/g" /etc/default/grub
-    arch-chroot /mnt grub-install --target=x86_64-efi $DISK --recheck
+    arch-chroot /mnt grub-install --target=x86_64-efi $DISK --efi-directory=efi --bootloader-id=GRUB --recheck
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
     }
 
@@ -209,7 +209,7 @@ install_blackarch(){
     curl -O https://blackarch.org/strap.sh
     cp strap.sh /mnt/root/strap.sh
     arch-chroot /mnt bash /root/strap.sh
-    arch-chroot /mnt sudo pacman -Syuu sqlmap net-snmp php proxychains gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound
+    arch-chroot /mnt sudo pacman -Syuu evil-winrm pidgin exploitdb sqlmap net-snmp php proxychains gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound bloodhound-python
     
 }
 
