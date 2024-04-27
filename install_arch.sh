@@ -152,7 +152,7 @@ chroot_and_install(){
     arch-chroot /mnt sed -i "s@^GRUB_CMDLINE_LINUX=.*@GRUB_CMDLINE_LINUX=\"cryptdevice="$DISK"2:cryptroot:allow-discards\"@g" /etc/default/grub
     echo -e "${BB}Enabling crypto in grub${CR}"
     arch-chroot /mnt sed -i "s/^#GRUB_ENABLE_CRYPTODISK/GRUB_ENABLE_CRYPTODISK/g" /etc/default/grub
-    arch-chroot /mnt grub-install --target=x86_64-efi $DISK --efi-directory=efi --bootloader-id=GRUB --removable --recheck
+    arch-chroot /mnt grub-install --target=x86_64-efi $DISK --efi-directory=/boot/efi --bootloader-id=GRUB --removable --recheck
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
     }
 
