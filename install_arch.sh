@@ -16,19 +16,23 @@ BY='\033[1;33m' # Bold yellow
 DISK="/dev/vda"
 
 # Place here your desired kernel.
-# You can also choose linux-lts, linux-hardened, linux-zen, or other.
+# You can also choose linux, linux-lts, linux-hardened, linux-zen, or other.
 
 KERNEL="linux-zen"
 
 # Essential packages to run system. You shouldn't remove any of it.
 
-PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networkmanager"
+PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networkmanager base-devel "
 
 # Aditional packages for your install.
+# Note -  waterfox is instaled from AUR in customize.sh script.
+PACKAGES_UTILITIES="ntfs-3g chromium zsh unzip i3 git xorg-xinit alacritty neovim feh python-pip wget flameshot dunst openbsd-netcat"
 
-PACKAGES_RICE="acpi arc-gtk-theme sysstat base-devel zsh xorg unzip i3 git xorg-xinit alacritty network-manager-applet neovim feh i3blocks pavucontrol i3status i3-gaps rofi picom python-pip wget xss-lock"
+# These packages will make your installation pretty :)
+PACKAGES_RICE="papirus-icon-theme acpi arc-gtk-theme sysstat xorg network-manager-appleti3blocks pavucontrol i3status i3-gaps lxappearance-gtk3  rofi picom xss-lock"
+
 # You may want to remove something from this list if you, specially if you are installing BlackArch repos in VM.
-PACKAGES_OPTIONAL="ntfs-3g signal-desktop chromium flameshot dunst papirus-icon-theme pulseaudio-bluetooth lxappearance-gtk3 dmidecode qemu virt-manager virt-viewer qemu-full dnsmasq vde2 bridge-utils openbsd-netcat bluez-utils"
+PACKAGES_OPTIONAL="signal-desktop pulseaudio-bluetooth dmidecode qemu virt-manager virt-viewer qemu-full dnsmasq vde2 bridge-utils bluez-utils"
 
 # Driver for GPU
 # See here available drivers
@@ -173,6 +177,11 @@ Defaults insults" > /mnt/etc/sudoers
     
     arch-chroot sudo usermod -a -G libvirt $USERNAME
 
+    # Setup NTP
+    echo -e "${BB} Setting up NTP${CR}"
+    arch-chroot /mnt timedatectl set-ntp true
+
+
 }
 
 
@@ -209,7 +218,7 @@ install_blackarch(){
     curl -O https://blackarch.org/strap.sh
     cp strap.sh /mnt/root/strap.sh
     arch-chroot /mnt bash /root/strap.sh
-    arch-chroot /mnt sudo pacman -Syuu feroxbuster evil-winrm pidgin exploitdb sqlmap net-snmp php proxychains gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound bloodhound-python
+    arch-chroot /mnt sudo pacman -Syuu bind feroxbuster evil-winrm pidgin exploitdb sqlmap net-snmp php proxychains gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound bloodhound-python
     
 }
 
