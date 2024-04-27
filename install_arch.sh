@@ -29,7 +29,7 @@ PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networ
 PACKAGES_UTILITIES="ntfs-3g chromium zsh unzip i3 git xorg-xinit alacritty neovim feh python-pip wget flameshot dunst openbsd-netcat"
 
 # These packages will make your installation pretty :)
-PACKAGES_RICE="papirus-icon-theme acpi arc-gtk-theme sysstat xorg network-manager-appleti3blocks pavucontrol i3status i3-gaps lxappearance-gtk3  rofi picom xss-lock"
+PACKAGES_RICE="papirus-icon-theme acpi arc-gtk-theme sysstat xorg network-manager-applet i3blocks pavucontrol i3status i3-gaps lxappearance-gtk3  rofi picom xss-lock"
 
 # You may want to remove something from this list if you, specially if you are installing BlackArch repos in VM.
 PACKAGES_OPTIONAL="signal-desktop pulseaudio-bluetooth dmidecode qemu virt-manager virt-viewer qemu-full dnsmasq vde2 bridge-utils bluez-utils"
