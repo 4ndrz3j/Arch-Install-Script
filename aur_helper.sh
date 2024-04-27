@@ -23,7 +23,7 @@ install_yay(){
 install_software(){
     ln -s ~/git/dotfiles/zsh/.zshrc ~/.zshrc
 
-    yay -Syuu aur/ttf-iosevka aur/waterfox-bin aur/xcwd  
+    yay -Syuu aur/waterfox-bin aur/xcwd  
 
     sudo chown -R $USERNAME:$USERNAME /home/$USERNAME
     }

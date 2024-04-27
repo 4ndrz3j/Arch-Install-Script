@@ -20,7 +20,17 @@ copy_config(){
 
 }
 
+install_fonts(){
+    cd ~
+    mkdir -p ~/.local/share/fonts/
+    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Iosevka.zip
+    unzip Iosevka.zip -d ~/.local/share/fonts/
+    fc-cache -fv
+    rm Iosevka.zip;
+    }
+
 
 copy_config
+install_fonts
 
 echo "Done!"
