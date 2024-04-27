@@ -25,6 +25,7 @@ setup.
 | Audio             | PulseAudio + pavucontrol|
 | Screenshot app    | Flameshot     |
 | Notification daemon| dunst        |
+| Pacman Wraper / AUR helper | yay |
 
 ### Other Software
 

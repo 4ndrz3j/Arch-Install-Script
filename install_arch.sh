@@ -25,7 +25,8 @@ KERNEL="linux-zen"
 PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networkmanager base-devel "
 
 # Aditional packages for your install.
-# Note -  waterfox is instaled from AUR in customize.sh script.
+# Note -  waterfox is instaled from AUR in aur_helper.sh script. Default AUR helper is yay
+# If you wish to install soft from AUR, add it in aur_helper.sh
 PACKAGES_UTILITIES="ntfs-3g chromium zsh unzip i3 git xorg-xinit alacritty neovim feh python-pip wget flameshot dunst openbsd-netcat"
 
 # These packages will make your installation pretty :)
@@ -190,7 +191,10 @@ Defaults insults" > /mnt/etc/sudoers
 final_rice(){
 echo -e "${BB}Adding final touch.${CR}"
 cp customize.sh /mnt/home/$USERNAME
+cp aur_helper.sh /mnt/home/$USERNAME
 arch-chroot /mnt sudo -u $TEMP_USERNAME bash /home/$TEMP_USERNAME/customize.sh
+arch-chroot /mnt sudo -u $TEMP_USERNAME bash /home/$TEMP_USERNAME/aur_helper.sh
+arch-chroot /mnt sudo rm /home/$TEMP_USERNAME/aur_helper.sh /home/$TEMP_USERNAME/customize.sh
 }
 
 end(){
