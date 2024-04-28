@@ -21,11 +21,9 @@ install_yay(){
 
 
 install_software(){
-    ln -s ~/git/dotfiles/zsh/.zshrc ~/.zshrc
 
     yay -Syuu aur/waterfox-bin
 
-    sudo chown -R $USERNAME:$USERNAME /home/$USERNAME
     }
 
 install_yay

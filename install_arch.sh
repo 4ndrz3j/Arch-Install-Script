@@ -204,7 +204,7 @@ arch-chroot /mnt sudo rm /home/$TEMP_USERNAME/aur_helper.sh /home/$TEMP_USERNAME
 
 end(){
     echo -e "${BB}Instalation complete.${CR}"
-    echo -e "${BB}You should now remove instalation media, and reboot${CR}"
+    echo -e "${BB}You should now remove instalation m3edia, and reboot${CR}"
 
 }
 
@@ -218,29 +218,29 @@ get_disk_pass(){
         return
      else
           echo -e "${BR} Passphrases are difrent! ${CR}"
-          get_disk_pass
+          get_disk_passr
      fi
 }
 
 install_blackarch(){
     echo -e "${BB} Instaling BlackArch Repository ${CR}"
     curl -O https://blackarch.org/strap.sh
-    cp strap.sh /mnt/root/strap.sh
-    arch-chroot /mnt bash /root/strap.sh
+    cp strap.sh /mnt/home/$TEMP_USERNAME/strap.sh
+    arch-chroot /mnt bash /home/$TEMP_USERNAME/strap.sh
     arch-chroot /mnt sudo pacman -Syuu bind feroxbuster evil-winrm pidgin exploitdb sqlmap net-snmp php proxychains gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound bloodhound-python
-    
+    arch-chroot /mnt rm /home/$TEMP_USERNAME/strap.sh
 }
 
 install_wm(){
 
-    if $WINDOW_MANAGER='i3';then
+    if [[ $WINDOW_MANAGER == "i3" ]];then
         PACKAGES_I3="i3status i3-gaps xorg i3-blocks xorg-xinit feh picom xss-lock"
         pacstrap /mnt $PACKAGES_I3
-        pacstrap /mnt yay -Syuu aur/xcwd
+        arch-chroot /mnt yay -Syu aur/xcwd
     fi
-    if $WINDOW_MANAGER='sway';then
+    if [[ $WINDOW_MANAGER == "sway" ]] ;then
         cp install_sway.sh /mnt /home/$TEMP_USERNAME/install_sway.sh
-        arch-chroot bash /home/$TEMP_USERNAME/install_sway.sh
+        arch-chroot sudo -u $TEMP_USERNAME bash /mnt /home/$TEMP_USERNAME/install_sway.sh
     fi
 
 
