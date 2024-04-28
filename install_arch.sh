@@ -27,13 +27,18 @@ PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networ
 # Aditional packages for your install.
 # Note -  waterfox is instaled from AUR in aur_helper.sh script. Default AUR helper is yay
 # If you wish to install soft from AUR, add it in aur_helper.sh
-PACKAGES_UTILITIES="ntfs-3g chromium zsh unzip i3 git xorg-xinit alacritty neovim feh python-pip wget flameshot dunst openbsd-netcat"
+PACKAGES_UTILITIES="ntfs-3g chromium zsh unzip git alacritty neovim python-pip wget flameshot dunst openbsd-netcat"
 
 # These packages will make your installation pretty :)
-PACKAGES_RICE="papirus-icon-theme acpi arc-gtk-theme sysstat xorg network-manager-applet i3blocks pavucontrol i3status i3-gaps lxappearance-gtk3  rofi picom xss-lock"
+PACKAGES_RICE="papirus-icon-theme acpi arc-gtk-theme sysstat netework-manager-applet pavucontrol lxappearance-gtk3 rofi"
 
 # You may want to remove something from this list if you, specially if you are installing BlackArch repos in VM.
 PACKAGES_OPTIONAL="signal-desktop pulseaudio-bluetooth dmidecode qemu virt-manager virt-viewer qemu-full dnsmasq vde2 bridge-utils bluez-utils"
+
+# Packages required to install I3 enviroment
+
+# Which windows manager install - i3, or sway?
+WINDOW_MANAGER=sway
 
 # Driver for GPU
 # See here available drivers
@@ -188,7 +193,7 @@ Defaults insults" > /mnt/etc/sudoers
 
 # Copy configs, etc.
 # This will copy customize.sh and run it to finish instalation.
-final_rice(){
+install_aur_and_dotfiles(){
 echo -e "${BB}Adding final touch.${CR}"
 cp customize.sh /mnt/home/$USERNAME
 cp aur_helper.sh /mnt/home/$USERNAME
@@ -226,6 +231,22 @@ install_blackarch(){
     
 }
 
+install_wm(){
+
+    if $WINDOW_MANAGER='i3';then
+        PACKAGES_I3="i3status i3-gaps xorg i3-blocks xorg-xinit feh picom xss-lock"
+        pacstrap /mnt $PACKAGES_I3
+        pacstrap /mnt yay -Syuu aur/xcwd
+    fi
+    if $WINDOW_MANAGER='sway';then
+        cp install_sway.sh /mnt /home/$TEMP_USERNAME/install_sway.sh
+        arch-chroot bash /home/$TEMP_USERNAME/install_sway.sh
+    fi
+
+
+
+}
+
 install(){
 
     set_locals
@@ -234,7 +255,8 @@ install(){
     encrypt_disk
     chroot_and_install
     configure_system
-    final_rice
+    install_aur_and_dotfiles
+    install_wm
     if $BLACKARCH;then install_blackarch;fi
     end
 }

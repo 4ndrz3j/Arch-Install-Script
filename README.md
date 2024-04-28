@@ -13,9 +13,9 @@ setup.
 |-------------------|-------------- |
 | Shell             | zsh           |
 | Terminal Emulator | Alacritty     |
-| Window manager    | i3wm          |
-| Image Viewer      | feh           |
-| Status Bar        | i3blocks      |
+| Window manager    | sway          |
+| Image Viewer      | TODO           |
+| Status Bar        | waybar      |
 | dmenu replacment  | Rofi          |
 | Web Browser       | Waterfox + Chromium     |
 | Text Editor       | neovim        |
@@ -27,13 +27,9 @@ setup.
 | Notification daemon| dunst        |
 | Pacman Wraper / AUR helper | yay |
 
-### Other Software
+## Windows managers
 
-- xcwd
-- unzip
-- git
-- wget
-- bluemoon
+In the past i used i3wm, but now i migrated to sway. But you can still install sway.
 
 ## Browsers
 
@@ -47,11 +43,7 @@ In the past I used [Librewolf](https://librewolf.net/), but there were some prob
 
 ## Display/login manager
 
-There is no standard display manager. i3 is stared using ```.zprofile```
-
-## Opacity
-
-Opacity is achived using picom
+There is no standard display manager. sway is stared using ```.zprofile```
 
 # BlackArch
 
