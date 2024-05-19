@@ -18,11 +18,11 @@ DISK="/dev/vda"
 # Place here your desired kernel.
 # You can also choose linux, linux-lts, linux-hardened, linux-zen, or other.
 
-KERNEL="linux-zen"
+KERNEL="linux-zen l;inux-zen-headers"
 
 # Essential packages to run system. You shouldn't remove any of it.
 
-PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networkmanager base-devel "
+PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networkmanager base-devel"
 
 # Aditional packages for your install.
 # Note -  waterfox is instaled from AUR in aur_helper.sh script. Default AUR helper is yay
@@ -40,6 +40,7 @@ PACKAGES_OPTIONAL="signal-desktop pulseaudio-bluetooth dmidecode qemu virt-manag
 # https://wiki.archlinux.org/index.php/Xorg#Driver_installation
 
 GPU_DRIVER="xf86-video-fbdev"
+NVIDIA_DRIVER=false
 
 # Place here your desired hostname
 
@@ -119,6 +120,11 @@ encrypt_disk(){
 chroot_and_install(){
     echo -e "${BB}Installing packages now${CR}"
     pacstrap /mnt $KERNEL $PACKAGES $PACKAGES_OPTIONAL $PACKAGES_UTILITIES  $PACKAGES_RICE $GPU_DRIVER
+    
+    if $NVIDIA_DRIVERS; then
+             pacstrap /mnt nvidia-dkms   
+    fi
+    
     echo -e "${BB}Generating fstab${CR}"
     genfstab -U /mnt >> /mnt/etc/fstab
     sed -i "s/relatime/relatime,discard/g" /mnt/etc/fstab
