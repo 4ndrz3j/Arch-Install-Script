@@ -18,7 +18,7 @@ DISK="/dev/vda"
 # Place here your desired kernel.
 # You can also choose linux, linux-lts, linux-hardened, linux-zen, or other.
 
-KERNEL="linux-zen l;inux-zen-headers"
+KERNEL="linux-zen linux-zen-headers"
 
 # Essential packages to run system. You shouldn't remove any of it.
 
@@ -40,6 +40,9 @@ PACKAGES_OPTIONAL="signal-desktop pulseaudio-bluetooth dmidecode qemu virt-manag
 # https://wiki.archlinux.org/index.php/Xorg#Driver_installation
 
 GPU_DRIVER="xf86-video-fbdev"
+
+# Install Nvidia drivers?
+
 NVIDIA_DRIVER=false
 
 # Place here your desired hostname
@@ -122,7 +125,9 @@ chroot_and_install(){
     pacstrap /mnt $KERNEL $PACKAGES $PACKAGES_OPTIONAL $PACKAGES_UTILITIES  $PACKAGES_RICE $GPU_DRIVER
     
     if $NVIDIA_DRIVERS; then
-             pacstrap /mnt nvidia-dkms   
+            pacstrap /mnt nvidia-dkms  nvidia-prime
+            arch-chroot /mnt sed -i "s/^MODULES=(.*)/HOOKS=(nvidia nvidia_modeset nvidia_uvm nvidia_drm )/g" /etc/mkinitcpio.conf
+
     fi
     
     echo -e "${BB}Generating fstab${CR}"

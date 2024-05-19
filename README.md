@@ -53,6 +53,11 @@ There is no standard display manager. i3 is stared using ```.zprofile```
 
 Opacity is achived using picom
 
+# Nvidia
+
+
+Run ```prime-run <program> to run it with Nvidia GPU.
+
 # BlackArch
 
 You can install BlackArch repos by setting variable *BLACKARCH* to ```true```
