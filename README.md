@@ -53,6 +53,10 @@ There is no standard display manager. i3 is stared using ```.zprofile```
 
 Opacity is achived using picom
 
+## WebCam
+
+[Webcam insttall repo](https://github.com/stefanpartheym/archlinux-ipu6-webcam)
+
 # BlackArch
 
 You can install BlackArch repos by setting variable *BLACKARCH* to ```true```
