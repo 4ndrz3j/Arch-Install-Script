@@ -48,7 +48,13 @@ NAME="Arch"
 # Your username
 
 USERNAME="user"
-TEMP_USERNAME=$USERNAME # Workaround for issues with passing variable to arch-chroo
+
+# Groups to add for your user
+
+GROUPS="libvirt"
+
+
+TEMP_USERNAME=$USERNAME # Workaround for issues with passing variable to arch-chroot
 
 
 # Install BlackArch repos?
@@ -176,7 +182,7 @@ configure_system(){
 $USERNAME ALL=(ALL) ALL
 Defaults insults" > /mnt/etc/sudoers
     
-    arch-chroot sudo usermod -a -G libvirt $USERNAME
+    arch-chroot /mnt usermod -a -G $GROUPS $USERNAME
 
     # Setup NTP
     echo -e "${BB} Setting up NTP${CR}"
