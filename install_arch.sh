@@ -167,15 +167,15 @@ configure_system(){
     arch-chroot /mnt ln -sf /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
     arch-chroot /mnt echo -e $NAME > /etc/hostname
     echo -e "${BB} Change root password ${CR}"
-    arch-chroot /mnt passwd
+    arch-choot /mnt /bin/bash -c "export ROOT_PASSWORD='$ROOT_PASSWORD' ; echo $ROOT_PASSWORD | passwd root --stdin"
     
     echo -e "${BB} Setting root shel to zsh ${CR}"
     arch-chroot /mnt usermod -s /bin/zsh root
 
 
     echo -e "${BB} Change $USERNAME password${CR}"
+    arch-choot /mnt /bin/bash -c "export USER_PASSWORD='$USER_PASSWORD' ; echo $USER_PASSWORD | passwd '$USERNAME' --stdin"
     arch-chroot /mnt useradd -m -s /bin/zsh $USERNAME
-    arch-chroot /mnt passwd $USERNAME
     
     echo -e "${BB} Editing /etc/sudoers${CR}"
     echo "root ALL=(ALL) ALL
@@ -209,18 +209,57 @@ end(){
 
 }
 
-get_disk_pass(){
-     echo -e "${BB} Enter disk encryption passphrase: ${CR}"
-     read -s PASS1
-     echo -e "${BB} Confirm your passhprase: ${CR}"
-     read -s PASS2
-     if [[ "$PASS1" == "$PASS2" ]];then
-        DISK_PASSPHRASE=$PASS1
-        return
-     else
-          echo -e "${BR} Passphrases are difrent! ${CR}"
-          get_disk_pass
-     fi
+get_secrets(){
+    # This function is used to get interactivly input form user
+    # We are geting Disk Encryption Key, User Password, Root password
+    # DP - Disk passhprase > DISK_PASSPHRASE
+    # UP - User password > USER_PASSWORD
+    # RP - Root password > ROOT_PASSWORD
+     DP1 = "X"
+     UP1 = "X"
+     RP1 = "X"
+
+     until [[ $DP1 == $DP2 ]];do
+        echo -e "${BB} Enter disk encryption passphrase: ${CR}"
+        read -s DP1
+        echo -e "${BB} Confirm your disk encryption passhprase: ${CR}"
+        read -s DP2
+        if [[ "$DP1" == "$DP2" ]];then
+            DISK_PASSPHRASE=$DP2
+            return
+        else
+            echo -e "${BR} Passphrases are difrent! ${CR}"
+        fi
+     ;done
+
+        until [[ $UP1 == $UP2 ]];do
+        echo -e "${BB} Enter $USERNAME password: ${CR}"
+        read -s UP1
+        echo -e "${BB} Confirm $USERNAME password: ${CR}"
+        read -s UP2
+        if [[ "$UP1" == "$UP2" ]];then
+            USER_PASSWORD=$UP2
+            return
+        else
+            echo -e "${BR} Passwords for $USERNAME are difrent! ${CR}"
+        fi
+     ;done
+
+        until [[ $RP1 == $RP2 ]];do
+        echo -e "${BB} Enter root password: ${CR}"
+        read -s RP1
+        echo -e "${BB} Confirm root password: ${CR}"
+        read -s RP2
+        if [[ "$P1" == "$RP2" ]];then
+            ROOT_PASSWORD=$RP2
+            return
+        else
+            echo -e "${BR} Passwords for root are difrent! ${CR}"
+        fi
+        ;done
+
+
+
 }
 
 install_blackarch(){
@@ -236,7 +275,7 @@ install(){
 
     set_locals
     disk_partition
-    get_disk_pass
+    get_secrets
     encrypt_disk
     chroot_and_install
     configure_system
