@@ -200,9 +200,9 @@ final_rice(){
 echo -e "${BB}Adding final touch.${CR}"
 cp customize.sh /mnt/home/$USERNAME
 cp aur_helper.sh /mnt/home/$USERNAME
-arch-chroot /mnt /bin/bash -c "echo '$USER_PASSWORD | sudo -S -u '$TEMP_USERNAME' bash /home/'$TEMP_USERNAME'/customize.sh"
+arch-chroot /mnt /bin/bash -c "echo '$USER_PASSWORD' | sudo -S -u '$TEMP_USERNAME' bash /home/'$TEMP_USERNAME'/customize.sh"
 arch-chroot /mnt /bin/bash -c "echo '$USER_PASSWORD' | sudo -S  -u '$TEMP_USERNAME' bash /home/'$TEMP_USERNAME'/aur_helper.sh"
-arch-chroot /mnt /bin/bash -c "echo '$USER_PASSWORD'| sudo -S rm /home/'$TEMP_USERNAME'/aur_helper.sh /home/'$TEMP_USERNAME'/customize.sh"
+arch-chroot /mnt /bin/bash -c "echo '$USER_PASSWORD' | sudo -S rm /home/'$TEMP_USERNAME'/aur_helper.sh /home/'$TEMP_USERNAME'/customize.sh"
 }
 
 end(){

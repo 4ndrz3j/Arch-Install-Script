@@ -14,7 +14,7 @@ install_yay(){
     cd ~
     git clone https://aur.archlinux.org/yay-bin.git
     cd yay-bin
-    makepkg -si
+    makepkg -si --noconfirm
     cd ~
     rm -rf yay-bin
 }
@@ -23,7 +23,7 @@ install_yay(){
 install_software(){
     ln -s ~/git/dotfiles/zsh/.zshrc ~/.zshrc
 
-    yay -Syuu aur/waterfox-bin aur/xcwd  
+    yay -Syuu --noprovides --answerdiff None --answerclean None --mflags "--noconfirm" aur/waterfox-bin aur/xcwd  
 
     chown -R $USERNAME:$USERNAME /home/$USERNAME
     }
