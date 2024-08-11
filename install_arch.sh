@@ -167,14 +167,14 @@ configure_system(){
     arch-chroot /mnt ln -sf /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
     arch-chroot /mnt echo -e $NAME > /etc/hostname
     echo -e "${BB} Change root password ${CR}"
-    arch-choot /mnt /bin/bash -c "echo '$ROOT_PASSWORD' | passwd root --stdin"
+    arch-chroot /mnt /bin/bash -c "echo '$ROOT_PASSWORD' | passwd root --stdin"
     
     echo -e "${BB} Setting root shel to zsh ${CR}"
     arch-chroot /mnt usermod -s /bin/zsh root
 
 
     echo -e "${BB} Change $USERNAME password${CR}"
-    arch-choot /mnt /bin/bash -c "echo '$USER_PASSWORD' | passwd '$USERNAME' --stdin"
+    arch-chroot /mnt /bin/bash -c "echo '$USER_PASSWORD' | passwd '$USERNAME' --stdin"
     arch-chroot /mnt useradd -m -s /bin/zsh $USERNAME
     
     echo -e "${BB} Editing /etc/sudoers${CR}"
@@ -198,9 +198,9 @@ final_rice(){
 echo -e "${BB}Adding final touch.${CR}"
 cp customize.sh /mnt/home/$USERNAME
 cp aur_helper.sh /mnt/home/$USERNAME
-arch-chroot /mnt sudo -u $TEMP_USERNAME bash /home/$TEMP_USERNAME/customize.sh
-arch-chroot /mnt sudo -u $TEMP_USERNAME bash /home/$TEMP_USERNAME/aur_helper.sh
-arch-chroot /mnt sudo rm /home/$TEMP_USERNAME/aur_helper.sh /home/$TEMP_USERNAME/customize.sh
+arch-chroot /mnt /bin/bash -c "echo '$USER_PASSWORD | sudo -S -u '$TEMP_USERNAME' bash /home/'$TEMP_USERNAME'/customize.sh"
+arch-chroot /mnt /bin/bash -c "echo '$USER_PASSWORD' | sudo -S  -u '$TEMP_USERNAME' bash /home/'$TEMP_USERNAME'/aur_helper.sh"
+arch-chroot /mnt /bin/bash -c "echo '$USER_PASSWORD'| sudo -S rm /home/'$TEMP_USERNAME'/aur_helper.sh /home/'$TEMP_USERNAME'/customize.sh"
 }
 
 end(){
