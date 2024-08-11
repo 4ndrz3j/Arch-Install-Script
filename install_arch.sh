@@ -174,9 +174,11 @@ configure_system(){
 
 
     echo -e "${BB} Change $USERNAME password${CR}"
-    arch-chroot /mnt /bin/bash -c "echo '$USER_PASSWORD' | passwd '$USERNAME' --stdin"
     arch-chroot /mnt useradd -m -s /bin/zsh $USERNAME
-    
+    arch-chroot /mnt /bin/bash -c "echo '$USER_PASSWORD' | passwd '$USERNAME' --stdin"
+
+
+
     echo -e "${BB} Editing /etc/sudoers${CR}"
     echo "root ALL=(ALL) ALL
 $USERNAME ALL=(ALL) ALL
