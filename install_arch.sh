@@ -167,14 +167,14 @@ configure_system(){
     arch-chroot /mnt ln -sf /usr/share/zoneinfo/Europe/Warsaw /etc/localtime
     arch-chroot /mnt echo -e $NAME > /etc/hostname
     echo -e "${BB} Change root password ${CR}"
-    arch-choot /mnt /bin/bash -c "export ROOT_PASSWORD='$ROOT_PASSWORD' ; echo $ROOT_PASSWORD | passwd root --stdin"
+    arch-choot /mnt /bin/bash -c "echo '$ROOT_PASSWORD' | passwd root --stdin"
     
     echo -e "${BB} Setting root shel to zsh ${CR}"
     arch-chroot /mnt usermod -s /bin/zsh root
 
 
     echo -e "${BB} Change $USERNAME password${CR}"
-    arch-choot /mnt /bin/bash -c "export USER_PASSWORD='$USER_PASSWORD' ; echo $USER_PASSWORD | passwd '$USERNAME' --stdin"
+    arch-choot /mnt /bin/bash -c "echo '$USER_PASSWORD' | passwd '$USERNAME' --stdin"
     arch-chroot /mnt useradd -m -s /bin/zsh $USERNAME
     
     echo -e "${BB} Editing /etc/sudoers${CR}"
