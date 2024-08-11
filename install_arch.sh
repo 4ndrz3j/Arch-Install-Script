@@ -27,7 +27,7 @@ PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networ
 # Aditional packages for your install.
 # Note -  waterfox is instaled from AUR in aur_helper.sh script. Default AUR helper is yay
 # If you wish to install soft from AUR, add it in aur_helper.sh
-PACKAGES_UTILITIES="ntfs-3g chromium zsh unzip i3 git xorg-xinit alacritty neovim feh python-pip wget flameshot dunst openbsd-netcat"
+PACKAGES_UTILITIES="ntfs-3g chromium zsh unzip i3 git xorg-xinit alacritty neovim feh python-pip wget flameshot dunst openbsd-netcat keepassxc"
 
 # These packages will make your installation pretty :)
 PACKAGES_RICE="papirus-icon-theme acpi arc-gtk-theme sysstat xorg network-manager-applet i3blocks pavucontrol i3status i3-gaps lxappearance-gtk3  rofi picom xss-lock"
