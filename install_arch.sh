@@ -226,7 +226,6 @@ get_secrets(){
         read -s DP2
         if [[ "$DP1" == "$DP2" ]];then
             DISK_PASSPHRASE=$DP2
-            return
         else
             echo -e "${BR} Passphrases are difrent! ${CR}"
         fi;
@@ -239,7 +238,6 @@ get_secrets(){
         read -s UP2
         if [[ "$UP1" == "$UP2" ]];then
             USER_PASSWORD=$UP2
-            return
         else
             echo -e "${BR} Passwords for $USERNAME are difrent! ${CR}"
         fi;
@@ -252,7 +250,6 @@ get_secrets(){
         read -s RP2
         if [[ "$P1" == "$RP2" ]];then
             ROOT_PASSWORD=$RP2
-            return
         else
             echo -e "${BR} Passwords for root are difrent! ${CR}"
         fi;
