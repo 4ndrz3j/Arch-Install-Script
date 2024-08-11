@@ -25,7 +25,7 @@ install_software(){
 
     yay -Syuu aur/waterfox-bin aur/xcwd  
 
-    sudo chown -R $USERNAME:$USERNAME /home/$USERNAME
+    chown -R $USERNAME:$USERNAME /home/$USERNAME
     }
 
 install_yay
