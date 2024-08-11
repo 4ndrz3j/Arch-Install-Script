@@ -19,7 +19,7 @@ DISK="/dev/vda"
 # You can also choose linux, linux-lts, linux-hardened, linux-zen, or other.
 
 KERNEL="linux-zen"
-`
+
 # Essential packages to run system. You shouldn't remove any of it.
 
 PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networkmanager base-devel "
@@ -248,7 +248,7 @@ get_secrets(){
         read -s RP1
         echo -e "${BB} Confirm root password: ${CR}"
         read -s RP2
-        if [[ "$P1" == "$RP2" ]];then
+        if [[ "$RP1" == "$RP2" ]];then
             ROOT_PASSWORD=$RP2
         else
             echo -e "${BR} Passwords for root are difrent! ${CR}"
