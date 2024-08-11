@@ -215,9 +215,9 @@ get_secrets(){
     # DP - Disk passhprase > DISK_PASSPHRASE
     # UP - User password > USER_PASSWORD
     # RP - Root password > ROOT_PASSWORD
-     DP1 = "X"
-     UP1 = "X"
-     RP1 = "X"
+     DP1="X"
+     UP1="X"
+     RP1="X"
 
      until [[ $DP1 == $DP2 ]];do
         echo -e "${BB} Enter disk encryption passphrase: ${CR}"
@@ -229,8 +229,8 @@ get_secrets(){
             return
         else
             echo -e "${BR} Passphrases are difrent! ${CR}"
-        fi
-     ;done
+        fi;
+     done
 
         until [[ $UP1 == $UP2 ]];do
         echo -e "${BB} Enter $USERNAME password: ${CR}"
@@ -242,8 +242,8 @@ get_secrets(){
             return
         else
             echo -e "${BR} Passwords for $USERNAME are difrent! ${CR}"
-        fi
-     ;done
+        fi;
+     done
 
         until [[ $RP1 == $RP2 ]];do
         echo -e "${BB} Enter root password: ${CR}"
@@ -255,8 +255,8 @@ get_secrets(){
             return
         else
             echo -e "${BR} Passwords for root are difrent! ${CR}"
-        fi
-        ;done
+        fi;
+        done
 
 
 
