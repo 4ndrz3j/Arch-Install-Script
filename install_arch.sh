@@ -27,13 +27,13 @@ PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networ
 # Aditional packages for your install.
 # Note -  waterfox is instaled from AUR in aur_helper.sh script. Default AUR helper is yay
 # If you wish to install soft from AUR, add it in aur_helper.sh
-PACKAGES_UTILITIES="ntfs-3g chromium zsh unzip i3 git xorg-xinit alacritty neovim feh python-pip wget flameshot dunst openbsd-netcat keepassxc"
+PACKAGES_UTILITIES="ntfs-3g zsh unzip i3 git xorg-xinit alacritty neovim python-pip wget flameshot openbsd-netcat chromium"
 
 # These packages will make your installation pretty :)
-PACKAGES_RICE="papirus-icon-theme acpi arc-gtk-theme sysstat xorg network-manager-applet i3blocks i3status i3-gaps lxappearance-gtk3  rofi picom xss-lock"
+PACKAGES_RICE="papirus-icon-theme acpi feh arc-gtk-theme sysstat xorg network-manager-applet i3blocks i3status i3-gaps lxappearance-gtk3  rofi picom xss-lock dunst"
 
 # You may want to remove something from this list if you, specially if you are installing BlackArch repos in VM.
-PACKAGES_OPTIONAL="signal-desktop pulseaudio-bluetooth dmidecode qemu virt-manager virt-viewer qemu-full dnsmasq vde2 bridge-utils bluez-utils aom vlc sof-firmware pavucontrol"
+PACKAGES_OPTIONAL="keepassxc yt-dlp chromium signal-desktop pulseaudio-bluetooth dmidecode qemu virt-manager virt-viewer qemu-full dnsmasq vde2 bridge-utils bluez-utils aom vlc sof-firmware pavucontrol"
 
 # Driver for GPU
 # See here available drivers
