@@ -27,13 +27,6 @@ setup.
 | Notification daemon| dunst        |
 | Pacman Wraper / AUR helper | yay |
 
-### Other Software
-
-- xcwd
-- unzip
-- git
-- wget
-- bluemoon
 
 ## Browsers
 
@@ -60,3 +53,8 @@ Opacity is achived using picom
 # BlackArch
 
 You can install BlackArch repos by setting variable *BLACKARCH* to ```true```
+
+# Nvidia packages
+
+To run applicaiotns with nvidia gpu, use ```prime-run```, for example: 
+```prime-run steam```

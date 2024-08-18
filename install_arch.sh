@@ -27,7 +27,7 @@ PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networ
 # Aditional packages for your install.
 # Note -  waterfox is instaled from AUR in aur_helper.sh script. Default AUR helper is yay
 # If you wish to install soft from AUR, add it in aur_helper.sh
-PACKAGES_UTILITIES="htop ntfs-3g zsh unzip i3 git xorg-xinit alacritty neovim python-pip wget flameshot openbsd-netcat chromium"
+PACKAGES_UTILITIES="htop usbutils ntfs-3g zsh unzip i3 git xorg-xinit alacritty neovim python-pip wget flameshot openbsd-netcat chromium"
 
 # These packages will make your installation pretty :)
 PACKAGES_RICE="papirus-icon-theme acpi feh arc-gtk-theme sysstat xorg network-manager-applet i3blocks i3status i3-gaps lxappearance-gtk3  rofi picom xss-lock dunst"
@@ -40,7 +40,7 @@ PACKAGES_OPTIONAL="keepassxc yt-dlp chromium signal-desktop pulseaudio-bluetooth
 # https://wiki.archlinux.org/index.php/Xorg#Driver_installation
 
 GPU_DRIVER="xf86-video-fbdev"
-
+#GPU_DRIVER="nvidia-open-dkms mesa-utils"
 # Place here your desired hostname
 
 NAME="Arch"
