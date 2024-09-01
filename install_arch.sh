@@ -35,6 +35,9 @@ PACKAGES_RICE="papirus-icon-theme acpi feh arc-gtk-theme sysstat xorg network-ma
 # You may want to remove something from this list if you, specially if you are installing BlackArch repos in VM.
 PACKAGES_OPTIONAL="keepassxc yt-dlp chromium signal-desktop pulseaudio-bluetooth dmidecode qemu virt-manager virt-viewer qemu-full dnsmasq vde2 bridge-utils bluez-utils aom vlc sof-firmware pavucontrol"
 
+# VM Packages - install if this will be VM installation
+# PACKAGES_VM = "spice-vdagent"
+
 # Driver for GPU
 # See here available drivers
 # https://wiki.archlinux.org/index.php/Xorg#Driver_installation
@@ -124,7 +127,7 @@ encrypt_disk(){
 # Change Kernel to desired version
 chroot_and_install(){
     echo -e "${BB}Installing packages now${CR}"
-    pacstrap /mnt $KERNEL $PACKAGES $PACKAGES_OPTIONAL $PACKAGES_UTILITIES  $PACKAGES_RICE $GPU_DRIVER
+    pacstrap /mnt $KERNEL $PACKAGES $PACKAGES_OPTIONAL $PACKAGES_UTILITIES  $PACKAGES_RICE $GPU_DRIVER $PACKAGES_VM
     echo -e "${BB}Generating fstab${CR}"
     genfstab -U /mnt >> /mnt/etc/fstab
     sed -i "s/relatime/relatime,discard/g" /mnt/etc/fstab
