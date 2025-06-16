@@ -276,7 +276,7 @@ install_blackarch(){
     echo -e "${BB} Instaling BlackArch Repository ${CR}"
     cp strap_blackarch.sh /mnt/root/strap.sh
     arch-chroot /mnt bash /root/strap.sh
-    arch-chroot /mnt sudo pacman -Syuu --noconfirm bind sublist3r subfinder httpx nuclei feroxbuster evil-winrm pidgin exploitdb sqlmap net-snmp php proxychains gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound bloodhound-python perl-image-exiftool libvncserver freerdp remmina android-tools jadx wireshark-qt nfs-utils
+    arch-chroot /mnt sudo pacman -Syuu --noconfirm bind sublist3r subfinder httpx nuclei feroxbuster evil-winrm pidgin exploitdb sqlmap net-snmp php proxychains gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound bloodhound-python perl-image-exiftool libvncserver freerdp remmina android-tools jadx wireshark-qt nfs-utils powershell-bin sublime-text
     arch-chroot /mnt rm /root/strap.sh
     
 }
