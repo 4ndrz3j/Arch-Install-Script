@@ -127,14 +127,8 @@ encrypt_disk(){
 # Chroot and install software
 # Change Kernel to desired version
 chroot_and_install(){
-    echo -e "${BB}Installing chaotic AUR${CR}"
-    arch-chroot /mnt pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
-    arch-chroot /mnt pacman-key --lsign-key 3056513887B78AEB
-    arch-chroot /mnt pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' --noconfirm
-    arch-chroot /mnt pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
-    echo "[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" >> /mnt/etc/pacman.conf
     echo -e "${BB}Installing packages now${CR}"
-    pacstrap /mnt $KERNEL $PACKAGES $PACKAGES_OPTIONAL $PACKAGES_UTILITIES  $PACKAGES_RICE $GPU_DRIVER $PACKAGES_VM $PACKAGES_CHAOTIC_AUR
+    pacstrap /mnt $KERNEL $PACKAGES $PACKAGES_OPTIONAL $PACKAGES_UTILITIES  $PACKAGES_RICE $GPU_DRIVER $PACKAGES_VM
     echo -e "${BB}Generating fstab${CR}"
     genfstab -U /mnt >> /mnt/etc/fstab
     sed -i "s/relatime/relatime,discard/g" /mnt/etc/fstab
@@ -145,7 +139,13 @@ chroot_and_install(){
     arch-chroot /mnt systemctl start libvirtd
     arch-chroot /mnt systemctl enable bluetooth
     arch-chroot /mnt systemctl start bluetooth
-
+    echo -e "${BB}Installing chaotic AUR${CR}"
+    arch-chroot /mnt pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+    arch-chroot /mnt pacman-key --lsign-key 3056513887B78AEB
+    arch-chroot /mnt pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' --noconfirm
+    arch-chroot /mnt pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
+    echo "[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" >> /mnt/etc/pacman.conf
+    arch-chroot /mnt pacman -Syu $PACKAGES_CHAOTIC_AUR --noconfirm
 
 
 # Copy key, to avoid typing passphrase two times on boot.
