@@ -28,7 +28,7 @@ install_software(){
     chown -R $USERNAME:$USERNAME /home/$USERNAME
     }
 
-install_yay
+#install_yay
 install_software
 
 echo "Done!"

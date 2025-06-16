@@ -23,6 +23,7 @@ KERNEL="linux-zen"
 # Essential packages to run system. You shouldn't remove any of it.
 
 PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networkmanager base-devel "
+PACKAGES_CHAOTIC_AUR="yay librewolf"
 
 # Aditional packages for your install.
 # Note -  waterfox is instaled from AUR in aur_helper.sh script. Default AUR helper is yay
@@ -126,8 +127,14 @@ encrypt_disk(){
 # Chroot and install software
 # Change Kernel to desired version
 chroot_and_install(){
+    echo -e "${BB}Installing chaotic AUR${CR}"
+    arch-chroot /mnt pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+    arch-chroot /mnt pacman-key --lsign-key 3056513887B78AEB
+    arch-chroot /mnt pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' --noconfirm
+    arch-chroot /mnt pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
+    echo "[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" >> /mnt/etc/pacman.conf
     echo -e "${BB}Installing packages now${CR}"
-    pacstrap /mnt $KERNEL $PACKAGES $PACKAGES_OPTIONAL $PACKAGES_UTILITIES  $PACKAGES_RICE $GPU_DRIVER $PACKAGES_VM
+    pacstrap /mnt $KERNEL $PACKAGES $PACKAGES_OPTIONAL $PACKAGES_UTILITIES  $PACKAGES_RICE $GPU_DRIVER $PACKAGES_VM $PACKAGES_CHAOTIC_AUR
     echo -e "${BB}Generating fstab${CR}"
     genfstab -U /mnt >> /mnt/etc/fstab
     sed -i "s/relatime/relatime,discard/g" /mnt/etc/fstab
