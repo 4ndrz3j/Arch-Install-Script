@@ -144,7 +144,8 @@ chroot_and_install(){
     arch-chroot /mnt pacman-key --lsign-key 3056513887B78AEB
     arch-chroot /mnt pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' --noconfirm
     arch-chroot /mnt pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
-    echo "[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" >> /mnt/etc/pacman.conf
+    echo '[chaotic-aur]' >> /mnt/etc/pacman.conf
+    echo 'Include = /etc/pacman.d/chaotic-mirrorlist' >> /mnt/etc/pacman.conf
     arch-chroot /mnt pacman -Syu $PACKAGES_CHAOTIC_AUR --noconfirm
 
 
@@ -275,7 +276,7 @@ install_blackarch(){
     echo -e "${BB} Instaling BlackArch Repository ${CR}"
     cp strap_blackarch.sh /mnt/root/strap.sh
     arch-chroot /mnt bash /root/strap.sh
-    arch-chroot /mnt sudo pacman -Syuu bind sublist3r subfinder httpx nuclei feroxbuster evil-winrm pidgin exploitdb sqlmap net-snmp php proxychains gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound bloodhound-python perl-image-exiftool libvncserver freerdp remmina android-tools jadx wireshark-qt nfs-utils
+    arch-chroot /mnt sudo pacman -Syuu --noconfirm bind sublist3r subfinder httpx nuclei feroxbuster evil-winrm pidgin exploitdb sqlmap net-snmp php proxychains gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound bloodhound-python perl-image-exiftool libvncserver freerdp remmina android-tools jadx wireshark-qt nfs-utils
     arch-chroot /mnt rm /root/strap.sh
     
 }
