@@ -30,13 +30,13 @@ PACKAGES="base linux-firmware cryptsetup grub efibootmgr mkinitcpio xterm networ
 PACKAGES_UTILITIES="htop usbutils ntfs-3g zsh unzip i3 git xorg-xinit alacritty neovim python-pip wget flameshot openbsd-netcat chromium"
 
 # These packages will make your installation pretty :)
-PACKAGES_RICE="papirus-icon-theme acpi feh arc-gtk-theme sysstat xorg network-manager-applet i3blocks i3status i3-gaps lxappearance-gtk3  rofi picom xss-lock dunst"
+PACKAGES_RICE="papirus-icon-theme acpi feh sysstat xorg network-manager-applet i3blocks i3status i3-gaps lxappearance-gtk3  rofi picom xss-lock dunst"
 
 # You may want to remove something from this list if you, specially if you are installing BlackArch repos in VM.
 PACKAGES_OPTIONAL="keepassxc yt-dlp chromium signal-desktop pulseaudio-bluetooth dmidecode qemu virt-manager virt-viewer qemu-full dnsmasq vde2 bridge-utils bluez-utils aom vlc sof-firmware pavucontrol"
 
 # VM Packages - install if this will be VM installation
-# PACKAGES_VM = "spice-vdagent"
+PACKAGES_VM="spice-vdagent"
 
 # Driver for GPU
 # See here available drivers
@@ -266,10 +266,10 @@ get_secrets(){
 
 install_blackarch(){
     echo -e "${BB} Instaling BlackArch Repository ${CR}"
-    curl -O https://blackarch.org/strap.sh
-    cp strap.sh /mnt/root/strap.sh
+    cp strap_blackarch.sh /mnt/root/strap.sh
     arch-chroot /mnt bash /root/strap.sh
-    arch-chroot /mnt sudo pacman -Syuu bind sublist3r subfinder httpx nuclei feroxbuster evil-winrm pidgin exploitdb sqlmap net-snmp php proxychains gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound bloodhound-python perl-image-exiftool libvncserver freerdp remmina android-tools jadx wireshark-qt
+    arch-chroot /mnt sudo pacman -Syuu bind sublist3r subfinder httpx nuclei feroxbuster evil-winrm pidgin exploitdb sqlmap net-snmp php proxychains gobuster ysoserial openvpn smbclient ghidra ffuf seclists nmap netexec metasploit hashcat john patator impacket responder inetutils hcxdumptool hcxkeys hcxtools burpsuite bloodhound bloodhound-python perl-image-exiftool libvncserver freerdp remmina android-tools jadx wireshark-qt nfs-utils
+    arch-chroot /mnt rm /root/strap.sh
     
 }
 
